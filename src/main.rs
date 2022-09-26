@@ -1,9 +1,7 @@
 #[allow(unused_variables)]
 #[allow(unused_imports)]
 
-// use std::io;
-// use std::io::prelude::*;
-// use std::fs::File;
+use std::io;
 use rand::Rng;
 
 fn main() {
@@ -23,17 +21,35 @@ fn game() {
 
     let hands = vec!["rock", "paper", "scissors"];
     let hand = hands[random_number];
-
     println!("current hand: {}", hand);
 
     // request user hand
-    println!("Choose your hand:");
+    println!("Enter your hand:");
 
-    let mut number = 1;
-    for h in hands {
-        println!("{} : {}", number, h);
-        number += 1;
+    for h in &hands {
+        println!("{}", h);
     }
+
+    let mut user_input = String::new();
+
+    io::stdin()
+        .read_line(&mut user_input)
+        .expect("invalid input");
+
+
+    let choice: &str = user_input.trim();
+
+    if hands.contains(&choice) {
+        if choice == hand {
+            println!("its a tie!");
+        }
+    } else {
+        println!("invalid input!");
+        return;
+    }
+
+
+
 
 
 }
