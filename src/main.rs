@@ -16,19 +16,12 @@ fn greeting() {
 fn game() {
 
     // generate computer hand
-    let mut rng = rand::thread_rng();
-    let random_number = rng.gen_range(0..3);
-
-    let hands = vec!["rock", "paper", "scissors"];
-    let hand = hands[random_number];
+    let hands = ["rock", "paper", "scissors"];
+    let hand = hands[rand::thread_rng().gen_range(0..3)];
     println!("current hand: {}", hand);
 
     // request user hand
-    println!("Enter your hand:");
-
-    for h in &hands {
-        println!("{}", h);
-    }
+    println!("Choose your hand [rock, paper, scissors]: ");
 
     let mut user_input = String::new();
 
@@ -37,19 +30,22 @@ fn game() {
         .expect("invalid input");
 
 
-    let choice: &str = user_input.trim();
+    let choice = user_input.trim();
 
     if hands.contains(&choice) {
-        if choice == hand {
-            println!("its a tie!");
-        }
     } else {
-        println!("invalid input!");
+        println!("error: invalid input");
         return;
     }
 
+    if choice == hand {
+        println!("tie game!");
+        return;
+    } else if (choice == "rock" && hand == "scissors") || (choice == "paper" && hand == "rock") || (choice == "scissors" && hand == "paper") {
+        println!("you win!");
+        return;
+    }
 
-
-
+    println!("you lose!");
 
 }
